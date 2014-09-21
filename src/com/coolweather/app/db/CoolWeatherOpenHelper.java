@@ -1,5 +1,7 @@
 package com.coolweather.app.db;
 
+import com.coolweather.app.util.LogUtil;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -10,28 +12,29 @@ public class CoolWeatherOpenHelper extends SQLiteOpenHelper {
 	/**
 	 * Province表建表语句
 	 */
-	public static final String CREATE_PROVINCE = "create table Provice ("
-			+"id integer primary key autoincrement,"
-			+"province_name text,"
-			+"province_code text)";
+	public static final String CREATE_PROVINCE = "create table Province ("
+			+"_id integer primary key autoincrement,"
+			+"province_quname text,"
+			+"province_pyname text)";
 	
 	/**
 	 * City表建表语句
 	 */
 	public static final String CREATE_CITY = "create table City("
-			+"id integer primary key autoincrement,"
+			+"_id integer primary key autoincrement,"
 			+"city_name text,"
-			+"city_code text,"
-			+"province_id integer)";
+			+"city_py text,"
+			+"city_url integer,"
+			+"province_code text)";
 	
 	/**
 	 * County表建表语句
 	 */
 	public static final String CREATE_COUNTY = "create table County("
-			+"id integer primary key autoincrement,"
+			+"_id integer primary key autoincrement,"
 			+"county_name text,"
-			+"county_code text,"
-			+"city_id integer)";
+			+"county_url integer,"
+			+"city_code text)";
 	
 
 	public CoolWeatherOpenHelper(Context context, String name,
@@ -46,6 +49,7 @@ public class CoolWeatherOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_PROVINCE);
 		db.execSQL(CREATE_CITY);
 		db.execSQL(CREATE_COUNTY);
+		LogUtil.i("coolweather", "database oncrete");
 	}
 
 	@Override

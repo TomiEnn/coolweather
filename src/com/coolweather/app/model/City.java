@@ -4,8 +4,9 @@ public class City {
 
 	private int id ;
 	private String cityName;
-	private String cityCode;
-	private int provinceId;
+	private String cityPy;
+	private int cityUrl;
+	private String ProvincePy;
 	public int getId() {
 		return id;
 	}
@@ -18,18 +19,26 @@ public class City {
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}
-	public String getCityCode() {
-		return cityCode;
+	public String getCityPy() {
+		return cityPy;
 	}
-	public void setCityCode(String cityCode) {
-		this.cityCode = cityCode;
+	public void setCityPy(String cityPy) {
+		this.cityPy = cityPy;
 	}
-	public int getProvinceId() {
-		return provinceId;
+	public int getCityUrl() {
+		return cityUrl;
 	}
-	public void setProvinceId(int provinceId) {
-		this.provinceId = provinceId;
+	public void setCityUrl(int cityUrl) {
+		this.cityUrl = cityUrl;
 	}
+	public String getProvincePy() {
+		return ProvincePy;
+	}
+	public void setProvincePy(String provincePy) {
+		ProvincePy = provincePy;
+	}
+	
+	
 	
 	
 }
