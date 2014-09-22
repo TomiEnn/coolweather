@@ -15,7 +15,10 @@ import com.coolweather.app.util.Utility;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -53,11 +56,24 @@ public class ChooseAreaActivity extends Activity {
 	private County selectCounty;
 	private CoolWeatherDB coolWeatherDB;
 	private ProgressDialog progressDialog;
-	
+	/**
+	 * 是否从weatherActivity中跳转回来
+	 */
+	private boolean isFromWeatherActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		/**只有city_selected为true和不是从WeatherActivity中跳转过来，才会返回到WeatherActivity中，
+		其它情况就悬着城市*/
+		if(prefs.getBoolean("city_selected", false) && !isFromWeatherActivity){
+			Intent intent = new Intent(this,WeatherActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_area);
 		titleText = (TextView) findViewById(R.id.choose_title);
@@ -79,6 +95,12 @@ public class ChooseAreaActivity extends Activity {
 				}else if(currentLevel == LEVEL_CITY){
 					selectCity = cityList.get(position);
 					queryCounties();
+				}else if(currentLevel == LEVEL_COUNTY){
+					String countyWeatherCode = countyList.get(position).getCountyUrl()+"";
+					Intent intent = new Intent(ChooseAreaActivity.this,WeatherActivity.class);
+					intent.putExtra("county__weather_code",countyWeatherCode);
+					startActivity(intent);
+					finish();
 				}
 			}
 			
@@ -239,6 +261,10 @@ public class ChooseAreaActivity extends Activity {
 		}else if(currentLevel == LEVEL_CITY){
 			queryProvinces();
 		}else{
+			if(isFromWeatherActivity){
+				Intent intent = new Intent(this,WeatherActivity.class);
+				startActivity(intent);
+			}
 			finish();
 		}
 	}
