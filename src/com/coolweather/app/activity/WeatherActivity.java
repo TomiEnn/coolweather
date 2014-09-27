@@ -1,6 +1,7 @@
 package com.coolweather.app.activity;
 
 import com.coolweather.app.R;
+import com.coolweather.app.service.AutoUpDateService;
 import com.coolweather.app.util.HttpCallBackListener;
 import com.coolweather.app.util.HttpUtil;
 import com.coolweather.app.util.Utility;
@@ -46,7 +47,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		currentDateText = (TextView) findViewById(R.id.current_date);
 		switchCity = (Button) findViewById(R.id.swich_city);
 		refreshWeather = (Button) findViewById(R.id.refresh_weather);
-		String countyWeatherCode = getIntent().getStringExtra("county__weather_code");
+		String countyWeatherCode = getIntent().getStringExtra("county_weather_code");
 		if(!TextUtils.isEmpty(countyWeatherCode)){
 			//有县级代号是就去查询天气
 			publishText.setText("同步中...");
@@ -141,6 +142,8 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		weatherDespText.setText(prefs.getString("weahter_desp",""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
+		Intent intent = new Intent(this,AutoUpDateService.class);
+		startService(intent);
 	}
 
 

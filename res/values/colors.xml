@@ -3,4 +3,15 @@
     <color name="choose_area_titlebar">#484E61</color>
     <color name="weather_title">#484E61</color>
     <color name="weather_content">#27A5F9</color>
+    <color name="weather_future_background">#43424F</color>
+    <color name="weather_item_line">#43424F</color>
+    <color name="weather_item_y">#DFEC57</color>
+    <color name="weather_item_o">#FC9D5B</color>
+    <color name="weather_item_b">#58BEF9</color>
+    <color name="weather_item_w">#FFF</color>
+    <color name="weather_item_z">#C2714D</color>
+    <color name="weather_item_th">#DEA244</color>
+    <color name="weather_item_black">#0C0E2B</color>
+    <color name="slide_layout_background">#ff222222</color>
+    <color name="weather_content_background">#ff33b5e5</color>
 </resources>

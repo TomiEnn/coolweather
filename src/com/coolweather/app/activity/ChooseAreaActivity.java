@@ -64,17 +64,17 @@ public class ChooseAreaActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		//isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
+		///SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		/**只有city_selected为true和不是从WeatherActivity中跳转过来，才会返回到WeatherActivity中，
 		其它情况就悬着城市*/
-		if(prefs.getBoolean("city_selected", false) && !isFromWeatherActivity){
+		/*if(prefs.getBoolean("city_selected", false) && !isFromWeatherActivity){
 			Intent intent = new Intent(this,WeatherActivity.class);
 			startActivity(intent);
 			finish();
 			return;
-		}
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		}*/
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_area);
 		titleText = (TextView) findViewById(R.id.choose_title);
 		listView = (ListView) findViewById(R.id.choose_listview);
@@ -97,8 +97,8 @@ public class ChooseAreaActivity extends Activity {
 					queryCounties();
 				}else if(currentLevel == LEVEL_COUNTY){
 					String countyWeatherCode = countyList.get(position).getCountyUrl()+"";
-					Intent intent = new Intent(ChooseAreaActivity.this,WeatherActivity.class);
-					intent.putExtra("county__weather_code",countyWeatherCode);
+					Intent intent = new Intent(ChooseAreaActivity.this,WeatherNewActivity.class);
+					intent.putExtra("county_weather_code",countyWeatherCode);
 					startActivity(intent);
 					finish();
 				}
