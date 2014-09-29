@@ -5,47 +5,39 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-   <RelativeLayout  
-        android:id="@+id/left_menu"  
-        android:layout_width="250dip"  
-        android:layout_height="fill_parent"  
-        android:layout_alignParentLeft="true"  
-        android:background="#00ccff"  
-        android:visibility="invisible" >  
+        <RelativeLayout
+            android:id="@+id/left_menu"
+            android:layout_width="270dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:background="#00ccff"
+            android:visibility="invisible" >
+
+            <fragment
+                android:name="com.coolweather.app.fragment.SlideLeftMent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/right_menu"
+            android:layout_width="250dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible" >
+
+            <fragment
+                android:name="com.coolweather.app.fragment.SlideRightMenu"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="320dip"
+            android:layout_height="wrap_content"
+             >
+            <include layout="@layout/weather_new" />
+        </LinearLayout>
   
-        <TextView  
-            android:layout_width="wrap_content"  
-            android:layout_height="wrap_content"  
-            android:layout_centerInParent="true"  
-            android:text="This is left menu"  
-            android:textColor="#000000"  
-            android:textSize="28sp" />  
-    </RelativeLayout>  
-  
-    <RelativeLayout  
-        android:id="@+id/right_menu"  
-        android:layout_width="250dip"  
-        android:layout_height="fill_parent"  
-        android:layout_alignParentRight="true"  
-        android:background="#00ffcc"  
-        android:visibility="invisible" >  
-  
-        <TextView  
-            android:layout_width="wrap_content"  
-            android:layout_height="wrap_content"  
-            android:layout_centerInParent="true"  
-            android:text="This is right menu"  
-            android:textColor="#000000"  
-            android:textSize="28sp" />  
-    </RelativeLayout>  
-  
-    <LinearLayout  
-        android:id="@+id/content"  
-        android:layout_width="320dip"  
-        android:layout_height="wrap_content"  
-         >  
-  	<include layout="@layout/weather_new" />"
-       
-    </LinearLayout> 
-    
 </com.coolweather.app.util.BidirSlidingLayout>

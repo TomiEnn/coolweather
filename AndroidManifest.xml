@@ -12,12 +12,13 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
+        android:name="com.coolweather.app.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.coolweather.app.activity.ChooseAreaActivity"
+            android:name="com.coolweather.app.activity.WeatherNewActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.coolweather.app.activity.WeatherActivity"></activity>
-        <activity android:name="com.coolweather.app.activity.WeatherNewActivity"></activity>
+        <activity android:name="com.coolweather.app.activity.ChooseAreaActivity"></activity>
         <activity android:name="com.coolweather.app.activity.WeatherShowActivity"></activity>
         <service android:name="com.coolweather.app.service.AutoUpDateService"></service>
         <receiver android:name="com.coolweather.app.receiver.AutoUpdateReceiver"></receiver>

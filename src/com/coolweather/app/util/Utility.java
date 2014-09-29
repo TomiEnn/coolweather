@@ -89,7 +89,6 @@ public class Utility {
 					switch (eventType) {
 					case XmlPullParser.START_TAG:
 						String nodeName = xmlPullParser.getName();
-						LogUtil.i("coolweather","handleCityResponse():");
 						if (nodeName.equalsIgnoreCase("city")) {
 							City city = new City();
 							//设置city的名字
@@ -103,13 +102,11 @@ public class Utility {
 									null, "pyName"));
 							//设置city的provincePy
 							city.setProvincePy(provincePy);
-							LogUtil.i("coolweather","handleCityResponse(): "+provincePy);
 							 coolWeatherDB.saveCity(city);
 						}
 						break;
 						case XmlPullParser.END_TAG:
 							String endName = xmlPullParser.getName();
-							System.out.println("***********endName: "+endName);
 					default:
 						break;
 					}
@@ -188,7 +185,7 @@ public class Utility {
 			String publishTime = weatherInfo.getString("ptime");
 			saveWeatherInfo(context, cityName, weatherCode, temp1, temp2, weatherDesp, publishTime);
 			
-		}catch(JSONException e){
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -224,7 +221,7 @@ public class Utility {
 		try{
 			response = response.replace("weather_callback(", "");
 			response = response.replace(")", "");
-			LogUtil.i("coolweather", "Uility weatherResponse: "+response);
+			LogUtil.i("coolweather", "Uility weatherFutureResponse: "+response);
 			JSONObject jsonObject = new JSONObject(response);
 			JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
 			String  cityName = weatherInfo.getString("city");
@@ -281,6 +278,7 @@ public class Utility {
 	public static void handleWeatherRealResponse(Context context, String response){
 		try{
 			JSONObject jsonObject = new JSONObject(response);
+			LogUtil.i("coolweather", "Uility weatherRealResponse: "+response);
 			JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
 			String realTemp = weatherInfo.getString("temp");
 			String realWind = weatherInfo.getString("WD");

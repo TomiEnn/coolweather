@@ -10,6 +10,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 public class BidirSlidingLayout extends RelativeLayout implements
@@ -219,7 +220,7 @@ public class BidirSlidingLayout extends RelativeLayout implements
 		super.onLayout(changed, l, t, r, b);
 		if (changed) {
 			// 获取左侧菜单布局对象
-			leftMenuLayout = getChildAt(0);
+			leftMenuLayout =  getChildAt(0);
 			leftMenuLayoutParams = (MarginLayoutParams) leftMenuLayout
 					.getLayoutParams();
 			// 获取右侧菜单布局对象
