@@ -13,10 +13,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
+
 /**
  * 从网络获取数据的工具类
+ * 
  * @author Tomi_Enn
- *
+ * 
  */
 public class HttpUtil {
 	public static boolean isConnected = false;
@@ -28,7 +30,8 @@ public class HttpUtil {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				//SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext()).edit();
+				// SharedPreferences.Editor editor =
+				// PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext()).edit();
 				HttpURLConnection connection = null;
 				try {
 					URL url = new URL(adress);
@@ -42,16 +45,19 @@ public class HttpUtil {
 					StringBuilder response = new StringBuilder();
 					String line;
 					int statusCode = connection.getResponseCode();
-					if(statusCode == HttpURLConnection.HTTP_OK){
-						/*isConnected = true;
-						editor.putBoolean("isConnected", isConnected);*/
+					if (statusCode == HttpURLConnection.HTTP_OK) {
+						/*
+						 * isConnected = true; editor.putBoolean("isConnected",
+						 * isConnected);
+						 */
 						while ((line = reader.readLine()) != null) {
 							response.append(line);
 						}
-					}else{
-						Toast.makeText(MyApplication.getContext(), "网络异常...", Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(MyApplication.getContext(), "网络异常...",
+								Toast.LENGTH_SHORT).show();
 					}
-					
+
 					if (listener != null) {
 						LogUtil.i("coolweather", "htttputil: listener done");
 						listener.onFinish(response.toString());
@@ -70,6 +76,7 @@ public class HttpUtil {
 		}).start();
 
 	}
+
 	public static void sendHttpRequest2(final String adress,
 			final Handler handler) {
 		new Thread(new Runnable() {
@@ -77,7 +84,8 @@ public class HttpUtil {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				//SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext()).edit();
+				// SharedPreferences.Editor editor =
+				// PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext()).edit();
 				HttpURLConnection connection = null;
 				try {
 					URL url = new URL(adress);
@@ -91,22 +99,24 @@ public class HttpUtil {
 					StringBuilder response = new StringBuilder();
 					String line;
 					int statusCode = connection.getResponseCode();
-					if(statusCode == HttpURLConnection.HTTP_OK){
-						/*isConnected = true;
-						editor.putBoolean("isConnected", isConnected);*/
+					if (statusCode == HttpURLConnection.HTTP_OK) {
+						/*
+						 * isConnected = true; editor.putBoolean("isConnected",
+						 * isConnected);
+						 */
 						while ((line = reader.readLine()) != null) {
 							response.append(line);
 							String result = response.toString();
 							Message message = new Message();
 							message.obj = result;
-						
+
 							handler.sendMessage(message);
 						}
-					}else{
-						Toast.makeText(MyApplication.getContext(), "网络异常...", Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(MyApplication.getContext(), "网络异常...",
+								Toast.LENGTH_SHORT).show();
 					}
-					
-					
+
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

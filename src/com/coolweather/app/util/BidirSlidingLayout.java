@@ -220,7 +220,7 @@ public class BidirSlidingLayout extends RelativeLayout implements
 		super.onLayout(changed, l, t, r, b);
 		if (changed) {
 			// 获取左侧菜单布局对象
-			leftMenuLayout =  getChildAt(0);
+			leftMenuLayout = getChildAt(0);
 			leftMenuLayoutParams = (MarginLayoutParams) leftMenuLayout
 					.getLayoutParams();
 			// 获取右侧菜单布局对象
@@ -430,7 +430,7 @@ public class BidirSlidingLayout extends RelativeLayout implements
 	 * 
 	 * @return 如果应该将右侧菜单展示出来返回true，否则返回false。
 	 */
-	private boolean shouldScrollToRightMenu() {
+	public boolean shouldScrollToRightMenu() {
 		return xDown - xUp > rightMenuLayoutParams.width / 2
 				|| getScrollVelocity() > SNAP_VELOCITY;
 	}

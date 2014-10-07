@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.coolweather.app.model.City;
 import com.coolweather.app.model.County;
+import com.coolweather.app.model.ItemWeather;
 import com.coolweather.app.model.Province;
 import com.coolweather.app.util.LogUtil;
 
@@ -164,4 +165,49 @@ public class CoolWeatherDB {
 		return list;
 
 	}
+	/**
+	 * 将itemWeather实例存储到数据库
+	 */
+	public void saveItemWeather(ItemWeather weather) {
+		if (weather != null) {
+			ContentValues values = new ContentValues();
+			values.put("name", weather.getLocal());
+			values.put("weather", weather.getWeather());
+			values.put("temp", weather.getTemp());
+			db.insert("ItemWeatehr", null, values);
+		}
+	}
+	/**
+	 * 从itemWeather中删除数据
+	 */
+	public void deleteItemWeather(String cityCode){
+		if(cityCode != null){
+			db.execSQL("delete from ItemWeather where city_code = ?", new String[]{"cityCode"});
+		}
+	}
+
+	/**
+	 * 从数据库读取某城市的所有天气信息
+	 */
+	public List<ItemWeather> loudItemWeatehr(String cityCode) {
+		List<ItemWeather> list = new ArrayList<ItemWeather>();
+		Cursor cursor = db.query("ItemWeather", null, "city_code = ?",
+				new String[] {cityCode}, null, null, null);
+
+		if(cursor.moveToFirst()){
+			do {
+				ItemWeather itemWeather = new ItemWeather();
+				itemWeather.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+				itemWeather.setLocal(cursor.getString(cursor.getColumnIndex("name"	)));
+				itemWeather.setTemp(cursor.getString(cursor.getColumnIndex("weather")));
+				itemWeather.setWeather(cursor.getString(cursor.getColumnIndex("temp")));
+				itemWeather.setCityCode(cityCode);
+				list.add(itemWeather);
+			} while (cursor.moveToNext());
+		}
+		return list;
+
+	}
+
+
 }

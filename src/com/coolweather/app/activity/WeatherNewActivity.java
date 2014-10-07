@@ -1,15 +1,19 @@
 package com.coolweather.app.activity;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.coolweather.app.MyApplication;
 import com.coolweather.app.R;
+import com.coolweather.app.fragment.SlideRightMenu;
+import com.coolweather.app.util.ActivityCollector;
 import com.coolweather.app.util.BidirSlidingLayout;
 import com.coolweather.app.util.HttpCallBackListener;
 import com.coolweather.app.util.HttpUtil;
 import com.coolweather.app.util.LogUtil;
 import com.coolweather.app.util.Utility;
+import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 
 import android.R.integer;
 import android.app.Activity;
@@ -21,17 +25,20 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WeatherNewActivity extends Activity {
+public class WeatherNewActivity extends BaseActivity {
 	/**
 	 * 双向滑动菜单布局
 	 */
@@ -107,11 +114,13 @@ public class WeatherNewActivity extends Activity {
 	 * 是否退出的标示
 	 */
 	private boolean isExit = false;
-	private ScrollView scrollView;
+	private StickyScrollView stickyScrollView;
 	private String currentWeatherCode;
 	private String weather;
 	private String temp;
 	private String pmValues;
+	private LinearLayout weatherNewLayout;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -120,9 +129,10 @@ public class WeatherNewActivity extends Activity {
 		setContentView(R.layout.slide_layout);
 		// 实例化控件
 		bidirSldingLayout = (BidirSlidingLayout) findViewById(R.id.bidir_sliding_layout);
+		weatherNewLayout = (LinearLayout) findViewById(R.id.weather_new_ll);
 		rightMenu = (RelativeLayout) findViewById(R.id.right_menu);
 		leftMenu = (RelativeLayout) findViewById(R.id.left_menu);
-		scrollView = (ScrollView) findViewById(R.id.scrollView);
+		stickyScrollView = (StickyScrollView) findViewById(R.id.stickyScrollView);
 		wnTextInfo = (TextView) findViewById(R.id.new_text_1);
 		wnTextTempAll = (TextView) findViewById(R.id.new_text_down_2);
 		wnTextTempReal = (TextView) findViewById(R.id.new_text_up_2);
@@ -136,7 +146,7 @@ public class WeatherNewActivity extends Activity {
 		wnImageHumidity = (ImageView) findViewById(R.id.new_image_5);
 		wnImageSuntime = (ImageView) findViewById(R.id.new_image_6);
 		// 左右滑动
-		bidirSldingLayout.setScrollEvent(scrollView);
+		bidirSldingLayout.setScrollEvent(stickyScrollView);
 		// 接收选择好的城市的代号，以显示天气
 		String countyWeatherCode = getIntent().getStringExtra(
 				"county_weather_code");
@@ -153,7 +163,25 @@ public class WeatherNewActivity extends Activity {
 		}
 
 	}
-
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		LogUtil.i("coolweather", "weatherNewActivity 暂停了");
+	}
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		LogUtil.i("coolweather", "weatherNewActivity 重新启动了");
+	}
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		LogUtil.i("coolweather", "weatherNewActivity 停止了");
+	}
 	/**
 	 * 根据天气代号转换实时天气地址
 	 * 
@@ -286,25 +314,25 @@ public class WeatherNewActivity extends Activity {
 
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		//风力情况
+		// 风力情况
 		String wind = prefs.getString("realWind", "");
 		String windStrength = prefs.getString("realWindStrength", "");
-		if(!TextUtils.isEmpty(windStrength)){
+		if (!TextUtils.isEmpty(windStrength)) {
 			wnTextWind.setText(wind + windStrength);
-		}else{
+		} else {
 			wnTextWind.setText(wind + "风");
 		}
-		//空气湿度
+		// 空气湿度
 		String humidity = prefs.getString("realHumidity", "");
-		if(!TextUtils.isEmpty(humidity)){
+		if (!TextUtils.isEmpty(humidity)) {
 			String temp = humidity.replace("%", "");
-			if(Integer.parseInt(temp) < 40){
+			if (Integer.parseInt(temp) < 40) {
 				wnImageHumidity.setImageResource(R.drawable.humidity_40);
-			}else{
+			} else {
 				wnImageHumidity.setImageResource(R.drawable.humidity_70);
 			}
 			wnTextHumidity.setText(humidity);
-		}else{
+		} else {
 			wnTextHumidity.setText("None");
 			wnImageHumidity.setImageResource(R.drawable.humidity_00);
 		}
@@ -318,9 +346,14 @@ public class WeatherNewActivity extends Activity {
 		weather = prefs.getString("weather1", "");// 天气
 		temp = prefs.getString("temp1", "");// 最高最低温度
 		pmValues = prefs.getString("pm", "");// PM值
-		LogUtil.i("coolweahter", " weather : "+weather +" temp : "+prefs.getString("temp1", "") +" pmValues : "+prefs.getString("pm", "") );
-		String sunRise = prefs.getString("rc1", "");// 日出时间
-		String sunSet = prefs.getString("rl1", "");// 日落时间
+		LogUtil.i(
+				"coolweahter",
+				" weather : " + weather + " temp : "
+						+ prefs.getString("temp1", "") + " pmValues : "
+						+ prefs.getString("pm", ""));
+		
+		String sunRise = prefs.getString("rc1",DateFormat.getTimeFormat(this).format(Calendar.getInstance().getTime()));// 日出时间
+		String sunSet = prefs.getString("rl1", DateFormat.getTimeFormat(this).format(Calendar.getInstance().getTime()));// 日落时间
 		// 显示天气信息布局
 		if (!TextUtils.isEmpty(weather)) {
 			wnTextInfo.setText(weather);
@@ -372,6 +405,10 @@ public class WeatherNewActivity extends Activity {
 			wnTextPm.setText("None");
 		}
 
+		//刷新右边界面的布局
+		SlideRightMenu rightMenu = (SlideRightMenu) getFragmentManager().findFragmentById(R.id.right_fragment);
+		LogUtil.i("coolweather", "Fragment是否空： " +rightMenu);
+		rightMenu.getDatas();
 	}
 
 	/**
@@ -395,10 +432,14 @@ public class WeatherNewActivity extends Activity {
 					}
 				}, 1500);
 			} else {
-
+				ActivityCollector.finishAll();
 				System.exit(0);
 			}
 		}
 		return false;
+	}
+
+	public void category(View view) {
+		Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show();
 	}
 }

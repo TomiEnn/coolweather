@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_city_rsl"
+    android:layout_width="250dp"
+    android:layout_height="80dp"
+    android:layout_marginTop="50dp" >
+
+    <RelativeLayout
+        android:id="@+id/add_layout_show_city"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/item_local_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="番禺"
+            android:textColor="#FFF"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_layout_rl_show_weather"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+         android:gravity="center_horizontal"
+        android:background="@drawable/add_layout_tv_show_weather" >
+        
+        <TextView 
+            android:id="@+id/item_weather_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="少云"
+            />
+         <TextView 
+            android:id="@+id/item_temp_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_weather_tv"
+            android:layout_marginTop="5dp"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:text="22/29"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

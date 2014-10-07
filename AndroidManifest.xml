@@ -19,16 +19,16 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.coolweather.app.activity.WeatherNewActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.coolweather.app.activity.WeatherActivity"></activity>
+        <activity android:name="com.coolweather.app.activity.BaseActivity"></activity>
         <activity android:name="com.coolweather.app.activity.ChooseAreaActivity"></activity>
-        <activity android:name="com.coolweather.app.activity.WeatherShowActivity"></activity>
         <service android:name="com.coolweather.app.service.AutoUpDateService"></service>
         <receiver android:name="com.coolweather.app.receiver.AutoUpdateReceiver"></receiver>
     </application>

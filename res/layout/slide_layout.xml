@@ -27,6 +27,7 @@
             android:visibility="invisible" >
 
             <fragment
+                android:id="@+id/right_fragment"
                 android:name="com.coolweather.app.fragment.SlideRightMenu"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />

@@ -157,7 +157,6 @@ public class Utility {
 						break;
 						case XmlPullParser.END_TAG:
 							String endName = xmlPullParser.getName();
-							System.out.println("***********endName: "+endName);
 					default:
 						break;
 					}
